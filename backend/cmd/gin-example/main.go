@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/ofgrenudo/gin-example/api/handlers/health"
+	"github.com/ofgrenudo/gin-example/api/middleware/auth"
 	"github.com/ofgrenudo/gin-example/internal/config/env"
 	"github.com/ofgrenudo/gin-example/internal/config/logging"
 )
@@ -20,6 +21,7 @@ func main() {
 	v1 := router.Group("/api/v1/")
 	healthGroup := v1.Group("/health")
 	healthGroup.GET("/ping", health.Ping)
+	healthGroup.GET("/auth", middleware.AuthMiddleware(), health.CheckAuth)
 
 	address := fmt.Sprintf(":%d", env.GlobalConfig.BackendPort)
 	if err := router.Run(address); err != nil {

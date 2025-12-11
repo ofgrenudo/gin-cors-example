@@ -13,9 +13,11 @@ type Config struct {
 	 * Config should all configurations relevant to the application. If you need
 	 * something configured or to read something from the ENV, please put it here.
 	 */
-	LogPath     string
-	LogLevel    string
-	BackendPort int
+	LogPath         string
+	LogLevel        string
+	BackendPort     int
+	BackendUserName string
+	BackendUserPass string
 }
 
 // Global config is a global variable to hold the initialized configuration struct.
@@ -28,9 +30,11 @@ func InitializeConfig() error {
 	}
 
 	cfg := Config{
-		LogPath:     os.Getenv("LOG_PATH"),
-		LogLevel:    os.Getenv("LOG_LEVEL"),
-		BackendPort: stringEnvToInt("BACKEND_PORT"),
+		LogPath:         os.Getenv("LOG_PATH"),
+		LogLevel:        os.Getenv("LOG_LEVEL"),
+		BackendPort:     stringEnvToInt("BACKEND_PORT"),
+		BackendUserName: os.Getenv("BACKEND_USER_NAME"),
+		BackendUserPass: os.Getenv("BACKEND_USER_API_KEY"),
 	}
 
 	// pass a reference to our global config.
