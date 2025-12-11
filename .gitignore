@@ -30,3 +30,4 @@ backend/.env
 # Editor/IDE
 # .idea/
 # .vscode/
+*.log
