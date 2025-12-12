@@ -31,3 +31,9 @@ backend/.env
 # .idea/
 # .vscode/
 *.log
+
+frontend/.env
+.env
+
+backend/dist/release/backend_*
+backend/dist/debug/backend_*
