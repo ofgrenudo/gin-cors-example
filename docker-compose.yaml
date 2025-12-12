@@ -9,7 +9,9 @@ services:
     ports:
       - "1234:1234"
     env_file:
-      - ./backend/env
+      - ./backend/.env
+    volumes:
+      - ./logs:/var/logs/gin-cors-example/
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:1234/api/v1/health/ping"]
       interval: 30s
@@ -24,9 +26,12 @@ services:
     container_name: gin-cors-example-frontend
     restart: unless-stopped
     ports:
-      - "8080:8080"
-    env_file:
-      - ./frontend/env
+      - "3000:3000"
+    environment:
+      # React apps must have REACT_APP_ prefix
+      REACT_APP_API_BASE_URL: http://backend:1234
+    volumes:
+      - ./logs:/var/logs/gin-cors-example/
     depends_on:
       backend:
         condition: service_healthy
